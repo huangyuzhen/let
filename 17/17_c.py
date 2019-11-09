@@ -8,15 +8,23 @@ class Solution:
             "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"
         }
 
-        if digits == "":
+        newDigits = ''
+        for digit in digits:
+            if digit in keyMaps.keys():
+                newDigits += digit
+
+        if newDigits == "":
             return []
 
-        L = ['']
-        for digit in digits:
+        L = []
+        for digit in newDigits:
             M = []
             for s in keyMaps[digit]:
-                for one in L:
-                    M.append(one+s)
+                if not L:
+                    M.append(s)
+                else:
+                    for one in L:
+                        M.append(one+s)
             L = M
 
         return L
