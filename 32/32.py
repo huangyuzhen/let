@@ -1,33 +1,27 @@
 class Solution(object):
     def longestValidParentheses(self, s):
-        stack = [('', 0)]
+        stack = []
         length = len(s)
 
+        # 记录:record [0,1,1,0,...], 1:表示此位置括号有效
         record = [0] * length
         for i in range(length):
             cur = s[i]
-            if cur == ')' and stack[-1][0] == '(':
-                r = stack.pop()
-                record[i] = 1
-                record[r[1]] = 1
-            else:
-                stack.append((cur, i))
+            if cur == '(':
+                stack.append(i)
+            elif cur == ')':
+                if len(stack) > 0:
+                    j = stack.pop()
+                    record[i] = 1
+                    record[j] = 1
 
+        # [0, 1, 1, 0] -> [0, 1, 2, 0]
         maxL = 0
-        left, right = -1, 0
-        while right < length:
-            if record[right] == 0:
-                if left >= 0:
-                    maxL = max(maxL, right-left)
-                left =-1
-            else:
-                if left < 0:
-                    left = right
-            right += 1
-
-        if left >= 0:
-            maxL = max(maxL, right-left)
-
+        for i in range(1, length):
+            if record[i] > 0:
+                record[i] = record[i-1] + 1
+                if record[i] > maxL:
+                    maxL = record[i]
         return maxL
 
 
