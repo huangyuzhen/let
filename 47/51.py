@@ -4,8 +4,11 @@ class Solution(object):
             if i == t or xList[i] == j:
                 # 同行或者同列
                 return False
-            if abs(i - t) == abs(xList[i] - j):
+            if i + xList[i] == t + j or i - xList[i] == t-j:
                 return False
+
+            # if abs(i - t) == abs(xList[i] - j):
+            #     return False
 
         return True
 
