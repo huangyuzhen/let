@@ -4,23 +4,17 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
-        if x < 0:
-            return None
-        if 0<= x <= 1: return x
-
-        lb, ub = 1, x
-
+        lb, ub = 0, x // 2 + 1
         while lb < ub:
-            mid = (lb + ub) // 2
+            mid = (lb + ub + 1) >> 1
             current = mid * mid
             if current == x:
                 return mid
             elif current < x:
-                lb = mid + 1
+                lb = mid
             elif current > x:
-                ub = mid
-
-        return lb - 1
+                ub = mid - 1
+        return lb
 
 
 x = 4
