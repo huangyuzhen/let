@@ -9,10 +9,9 @@ class Solution(object):
         w = ''
         for s in path + '/':
             if s == '/':
-                # check w
                 if w == '..':
                     if len(stack) > 0: stack.pop()
-                elif w == '.':
+                elif w in '.':
                     pass
                 elif w != '':
                     stack.append(w)
@@ -20,13 +19,7 @@ class Solution(object):
             else:
                 w += s
 
-        if len(stack) == 0:
-            return '/'
-        else:
-            p = ''
-            for s in stack:
-                p += '/' + s
-            return p
+        return '/' + '/'.join(stack)
 
 
 
