@@ -1,9 +1,8 @@
-from collections import Counter
 
 class Solution(object):
     def isValid(self, found, needs):
         for x in needs:
-            if needs[x] > found[x]:
+            if needs[x] > found.get(x, 0):
                 return False
         return True
 
@@ -16,15 +15,16 @@ class Solution(object):
         if not s or not t: return ''
 
         left, right = 0, 0
-        bestV = [9999, '']
+        bestV = [999999999, '']
 
+        needs = {}
+        for a in t:
+            needs[a] = needs.get(a,0) + 1
 
-        needs = Counter(t)
-        found = Counter()
-
+        found = {}
         while right < len(s):
             cur = s[right]
-            found[cur] += 1
+            found[cur] = found.get(cur, 0) + 1
             right += 1
 
             while self.isValid(found, needs):
