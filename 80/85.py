@@ -11,13 +11,11 @@ class Solution(object):
 
         row = []
         for _ in range(m): row.append([0] * n)
-        for i in range(m):
-            row[i][0] = int(matrix[i][0])
+        for i in range(m): row[i][0] = int(matrix[i][0])
 
         column = []
         for _ in range(m): column.append([0] * n)
-        for j in range(n):
-            column[0][j] = int(matrix[0][j])
+        for j in range(n): column[0][j] = int(matrix[0][j])
 
         maxArea = 0
         for i in range(m):
@@ -37,26 +35,43 @@ class Solution(object):
                     elif j == 0:
                         area = column[i][j]
                     else:
-                        k = j
-                        h = column[i][k]
+                        area = max(column[i][j], row[i][j])
+                        if i > j:
+                            h = column[i][j]
+                            k = j-1
 
-                        while k >= 0:
-                            h = min(h, column[i][k])
-                            if h == 0: break
-                            w = j-k +1
-                            area = max(h * w, area)
-                            k -= 1
-
+                            while k >= 0:
+                                h = min(h, column[i][k])
+                                if h <= 1: break
+                                w = j-k +1
+                                area = max(h * w, area)
+                                k -= 1
+                        else:
+                            w = row[i][j]
+                            k = i-1
+                            while k >= 0:
+                                w = min(w, row[k][j])
+                                if w <= 1: break
+                                h = i-k +1
+                                area = max(h * w, area)
+                                k -= 1
                 maxArea = max(area, maxArea)
 
         return maxArea
 
+# m = [
+#     ["1","0","1","0","0"],
+#     ["1","0","1","1","1"],
+#     ["1","1","1","1","1"],
+#     ["1","0","0","1","0"]
+#     ]
 
+# m = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 m = [
-    ["1","0","1","0","0"],
-    ["1","0","1","1","1"],
-    ["1","1","1","1","1"],
-    ["1","0","0","1","0"]]
+    ["1","1","0","1"],
+    ["1","1","0","1"],
+    ["1","1","1","1"]]
+
 solution = Solution()
 x = solution.maximalRectangle(m)
 print(x)
