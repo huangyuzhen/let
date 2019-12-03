@@ -15,6 +15,7 @@ class Solution(object):
         if m == n: return head
 
         prefix = ListNode(0)
+        prefix.next = head
         tail = prefix
 
         cur = head
@@ -23,9 +24,7 @@ class Solution(object):
             tmp = cur.next
             index += 1
             if index < m:
-                tail.next = cur
-                tail = tail.next
-                cur = cur.next
+                tail = cur
             elif index == m:
                 left = cur
                 right = cur
