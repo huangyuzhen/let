@@ -22,7 +22,7 @@ class Solution(object):
         while cur:
             tmp = cur.next
             index += 1
-            if index < m or index > n:
+            if index < m:
                 tail.next = cur
                 tail = tail.next
                 cur = cur.next
@@ -34,12 +34,14 @@ class Solution(object):
                 cur.next = left
                 tail.next = cur
                 tail = right
+            elif index > n:
+                tail.next = cur
+                break
             else: # m < index < n
                 cur.next = left
                 left = cur
 
             cur = tmp
-
         return prefix.next
 
 
