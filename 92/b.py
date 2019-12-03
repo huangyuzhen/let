@@ -7,18 +7,22 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-def reverseN(head, n):
-    def reverseNt(head, n):
+class Solution(object):
+    def reverseNt(self, head, n):
         tail = head.next
         head.next = None
-        if not tail or n == 1: return head, tail
-        last, part = reverseNt(tail, n-1)
+        if not tail or n == 1:
+            self.suffix = tail
+            return head
+        last = self.reverseNt(tail, n-1)
         tail.next = head
-        return last, part
+        return last
 
-    last, part = reverseNt(head, n)
-    head.next = part
-    return last
+    def reverseN(self, head, n):
+        last = self.reverseNt(head, n)
+        head.next = self.suffix
+
+        return last
 
 
 link = None
@@ -28,7 +32,8 @@ for i in range(5, 0, -1):
     link = a
 origin = link
 
-r = reverseN(origin, 6)
+solution = Solution()
+r = solution.reverseN(origin, 2)
 link = r
 while link:
     print(link.val)
