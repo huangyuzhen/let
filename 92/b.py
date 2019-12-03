@@ -11,7 +11,7 @@ def reverseN(head, n):
     def reverseNt(head, N, n):
         tail = head.next
         head.next = None
-        if n == 1: return head, tail
+        if not tail or n == 1: return head, tail
         last, part = reverseNt(tail, N, n-1)
         tail.next = head
         return last, part
@@ -28,7 +28,7 @@ for i in range(5, 0, -1):
     link = a
 origin = link
 
-r = reverseN(origin, 2)
+r = reverseN(origin, 6)
 link = r
 while link:
     print(link.val)
