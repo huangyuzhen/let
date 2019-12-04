@@ -25,8 +25,21 @@ class Node:
             self.right.LRT(result)
         result.append(self.val)
 
-    # 使用栈实现的LTR
     def walk(self):
+        result = []
+        stack = [self]
+        
+        while len(stack):
+            node = stack.pop()
+            result.append(node.val)
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return result
+
+    # 使用栈实现的LTR
+    def walk1(self):
         result = []
         stack = [self]
 
@@ -46,6 +59,7 @@ class Node:
 
         return result
 
+    # 栈实现的 LTR
     def walk2(self):
         result = []
         stack = []
@@ -61,6 +75,29 @@ class Node:
 
         return result
 
+    # 栈实现的 后序遍历
+    def walk3(self):
+        result = []
+        stack = []
+        cur = self
+        pre = None
+
+        while cur or stack:
+            while cur:
+                print("入栈", cur.val)
+                stack.append(cur)
+                cur = cur.left
+            cur = stack[-1]
+            if not cur.right or cur.right == pre:
+                stack.pop()
+                result.append(cur.val)
+                pre = cur
+                cur = None
+            else:
+                cur = cur.right
+
+        return result
+
 
 
 root = Node(4)
@@ -72,9 +109,9 @@ root.right.left = Node(5)
 root.right.right = Node(7)
 
 
-# result = []
-# root.TLR(result)
-# print(result)
+result = []
+root.TLR(result)
+print(result)
 
-x = root.walk2()
+x = root.walk()
 print(x)
