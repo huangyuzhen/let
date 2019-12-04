@@ -3,24 +3,37 @@ class Node:
         self.val = x
         self.left = None
         self.right = None
-        self.status = 0
 
-    def LTR(self):
+    def LTR(self, result):
         if self.left:
-            self.left.LTR()
-
-        print(self.val)
-
+            self.left.LTR(result)
+        result.append(self.val)
         if self.right:
-            self.right.LTR()
+            self.right.LTR(result)
 
+    def TLR(self, result):
+        result.append(self.val)
+        if self.left:
+            self.left.TLR(result)
+        if self.right:
+            self.right.TLR(result)
+
+    def LRT(self, result):
+        if self.left:
+            self.left.LRT(result)
+        if self.right:
+            self.right.LRT(result)
+        result.append(self.val)
+
+    # 使用栈实现的LTR
     def walk(self):
+        result = []
         stack = [self]
 
         while len(stack):
             node = stack.pop()
-            if node.status == 1:
-                print(node.val)
+            if hasattr(node, 'status') and node.status == 1:
+                result.append(node.val)
             else:
                 if node.right:
                     stack.append(node.right)
@@ -31,6 +44,22 @@ class Node:
                 if node.left:
                     stack.append(node.left)
 
+        return result
+
+    def walk2(self):
+        result = []
+        stack = []
+        cur = self
+
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            result.append(cur.val)
+            cur = cur.right
+
+        return result
 
 
 
@@ -43,6 +72,9 @@ root.right.left = Node(5)
 root.right.right = Node(7)
 
 
-# root.LTR()
+# result = []
+# root.TLR(result)
+# print(result)
 
-root.walk()
+x = root.walk2()
+print(x)
