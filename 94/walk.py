@@ -17,6 +17,10 @@ class Solution(object):
         self.walk(root, result)
         return result
 
+    def inorderTraversal0(self, root):
+        f = self.inorderTraversal0
+        return f(root.left) + [root.val] + f(root.right) if root else []
+
     def inorderTraversal1(self, root):
         result = []
         stack  = []
@@ -49,6 +53,22 @@ class Solution(object):
 
                 if node.left:
                     stack.append(node.left)
+
+        return result
+
+    def inorderTraversal22(self, root):
+        WHITE, GRAY = 0, 1
+        result = []
+        stack = [(WHITE, root)]
+        while stack:
+            color, node = stack.pop()
+            if not node: continue
+            if color == WHITE:
+                stack.append((WHITE, node.right))
+                stack.append((GRAY, node))
+                stack.append((WHITE, node.left))
+            else:
+                result.append(node.val)
 
         return result
 
@@ -87,7 +107,8 @@ def initData():
 
 root = initData()
 solution = Solution()
-print(solution.inorderTraversal(root))
+print(solution.inorderTraversal0(root))
 print(solution.inorderTraversal1(root))
 print(solution.inorderTraversal2(root))
+print(solution.inorderTraversal22(root))
 print(solution.inorderTraversal3(root))
