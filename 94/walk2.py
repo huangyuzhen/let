@@ -8,30 +8,36 @@ class TreeNode(object):
 class Solution(object):
     def walk(self, root, result):
         if root:
-            result.append(root.val)
             self.walk(root.left, result)
             self.walk(root.right, result)
+            result.append(root.val)
 
-    def preorderTraversal(self, root):
+    def postorderTraversal(self, root):
         result = []
         self.walk(root, result)
         return result
 
-    def preorderTraversal1(self, root):
+    def postorderTraversal1(self, root):
         result = []
         stack  = []
         node = root
+        pre  = None
         while node or stack:
             if node:
-                result.append(node.val)
                 stack.append(node)
                 node = node.left
             else:
-                node = stack.pop()
-                node = node.right
+                node = stack[-1]
+                if node.right and node.right != pre:
+                    node = node.right
+                else:
+                    stack.pop()
+                    result.append(node.val)
+                    pre = node
+                    node = None
         return result
 
-    def preorderTraversal2(self, root):
+    def postorderTraversal2(self, root):
         result = []
         stack = [root]
 
@@ -41,18 +47,18 @@ class Solution(object):
                 del(node.traversalFlag)
                 result.append(node.val)
             else:
+                node.traversalFlag = True
+                stack.append(node)
+
                 if node.right:
                     stack.append(node.right)
 
                 if node.left:
                     stack.append(node.left)
 
-                node.traversalFlag = True
-                stack.append(node)
-
         return result
 
-    def preorderTraversal3(self, root):
+    def postorderTraversal3(self, root):
         result = []
         stack = [root]
 
@@ -60,10 +66,9 @@ class Solution(object):
             node = stack.pop()
             if node:
                 result.append(node.val)
-                stack.append(node.right)
                 stack.append(node.left)
-
-        return result
+                stack.append(node.right)
+        return result[::-1]
 
 
 def initData():
@@ -81,7 +86,7 @@ def initData():
 
 root = initData()
 solution = Solution()
-print(solution.preorderTraversal(root))
-print(solution.preorderTraversal1(root))
-print(solution.preorderTraversal2(root))
-print(solution.preorderTraversal3(root))
+print(solution.postorderTraversal(root))
+print(solution.postorderTraversal1(root))
+print(solution.postorderTraversal2(root))
+print(solution.postorderTraversal3(root))

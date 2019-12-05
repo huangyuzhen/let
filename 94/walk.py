@@ -37,13 +37,14 @@ class Solution(object):
 
         while stack:
             node = stack.pop()
-            if hasattr(node, 'inorderFlag') and node.inorderFlag:
+            if hasattr(node, 'traversalFlag') and node.traversalFlag:
+                del(node.traversalFlag)
                 result.append(node.val)
             else:
                 if node.right:
                     stack.append(node.right)
 
-                node.inorderFlag = True
+                node.traversalFlag = True
                 stack.append(node)
 
                 if node.left:
