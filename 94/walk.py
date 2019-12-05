@@ -52,6 +52,24 @@ class Solution(object):
 
         return result
 
+    def inorderTraversal3(self, root):
+        result = []
+        node = root
+
+        while node:
+            if not node.left:
+                result.append(node.val)
+                node = node.right
+            else:
+                newTop = node.left
+                node.left = None
+                rightMost = newTop
+                while rightMost.right:
+                    rightMost = rightMost.right
+                rightMost.right = node
+                node = newTop
+
+        return result
 
 
 def initData():
@@ -72,4 +90,4 @@ solution = Solution()
 print(solution.inorderTraversal(root))
 print(solution.inorderTraversal1(root))
 print(solution.inorderTraversal2(root))
-
+print(solution.inorderTraversal3(root))
