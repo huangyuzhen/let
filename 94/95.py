@@ -91,4 +91,4 @@ class Solution(object):
 
 
 solution = Solution()
-print(solution.generateTrees(0))
+print(solution.generateTrees(4))
