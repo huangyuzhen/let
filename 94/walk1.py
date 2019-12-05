@@ -6,15 +6,15 @@ class TreeNode(object):
         self.right = None
 
 class Solution(object):
-    def preorderHelper(self, root, result):
+    def walk(self, root, result):
         if root:
             result.append(root.val)
-            self.preorderHelper(root.left, result)
-            self.preorderHelper(root.right, result)
+            self.walk(root.left, result)
+            self.walk(root.right, result)
 
     def preorderTraversal(self, root):
         result = []
-        self.preorderHelper(root, result)
+        self.walk(root, result)
         return result
 
     def preorderTraversal1(self, root):
@@ -51,6 +51,18 @@ class Solution(object):
 
         return result
 
+    def preorderTraversal3(self, root):
+        result = []
+        stack = [root]
+
+        while stack:
+            node = stack.pop()
+            if node:
+                result.append(node.val)
+                stack.append(node.right)
+                stack.append(node.left)
+
+        return result
 
 
 def initData():
@@ -71,4 +83,4 @@ solution = Solution()
 print(solution.preorderTraversal(root))
 print(solution.preorderTraversal1(root))
 print(solution.preorderTraversal2(root))
-
+print(solution.preorderTraversal3(root))

@@ -6,15 +6,15 @@ class TreeNode(object):
         self.right = None
 
 class Solution(object):
-    def ltr(self, root, result):
+    def walk(self, root, result):
         if root:
-            self.ltr(root.left, result)
+            self.walk(root.left, result)
             result.append(root.val)
-            self.ltr(root.right, result)
+            self.walk(root.right, result)
 
     def inorderTraversal(self, root):
         result = []
-        self.ltr(root, result)
+        self.walk(root, result)
         return result
 
     def inorderTraversal1(self, root):
