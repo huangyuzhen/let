@@ -23,6 +23,7 @@ class Solution(object):
         pre = root
         cur = None
 
+        # 通过 pre 这层的next， 连接起下一层的next
         while pre.left:
             cur = pre
             while cur:
