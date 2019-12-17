@@ -44,6 +44,8 @@ class Solution(object):
                         if newWord in backward:
                             return pathL
                         tmp.add(newWord)
+                    linkDict[w] = []
+
             pathL += 1
             forward = tmp
 
