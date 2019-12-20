@@ -18,8 +18,7 @@ class Solution(object):
                 else:
                     parts = self.partition(second)
                     for item in parts:
-                        item.insert(0, first)
-                        result.append(item)
+                        result.append([first] + item)
 
         return result
 
