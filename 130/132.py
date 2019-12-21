@@ -33,5 +33,5 @@ sol = Solution()
 x = sol.minCut(s)
 print(x)
 
-for k in sol.memTable:
-    print(k, sol.memTable[k])
+# for k in sol.memTable:
+#     print(k, sol.memTable[k])

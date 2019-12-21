@@ -18,14 +18,13 @@ class Solution:
         for j in range(1, length):
             if dp[0][j]:
                 resultDp[j] = 0
-                continue
-            # 枚举分割点
-            minV = 9999999
-            for i in range(j):
-                if dp[i+1][j]:
-                    minV = min(resultDp[i], minV)
-
-            resultDp[j] = minV + 1
+            else:
+                # 枚举分割点
+                minV = 9999999
+                for i in range(j):
+                    if dp[i+1][j]:
+                        minV = min(resultDp[i], minV)
+                resultDp[j] = minV + 1
 
         return resultDp[-1]
 
