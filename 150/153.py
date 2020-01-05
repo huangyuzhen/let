@@ -14,12 +14,11 @@ class Solution(object):
             lb, ub = 0, length - 1
             while lb < ub:
                 mid = (lb + ub) // 2
-                if nums[mid] > nums[rotateIndex]:
-                    rotateIndex = mid
+                if nums[mid] > nums[ub]:
                     lb = mid+1
                 else:
                     ub = mid
-            rotateIndex += 1
+            rotateIndex = lb
 
         return nums[rotateIndex]
 
